@@ -1,0 +1,1247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply text-gray-50 font-sans antialiased overflow-hidden;
+    background-color: #0f0f1a;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('/assets/bg.jpg?v=2') center/cover no-repeat fixed;
+    filter: brightness(0.25) saturate(1.2) blur(4px) contrast(1.1);
+    z-index: -2;
+    animation: slowZoom 40s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0, 146, 70, 0.12), transparent 60%),
+      radial-gradient(circle at 80% 70%, rgba(206, 43, 55, 0.08), transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04), transparent 70%),
+      linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 25%, transparent 75%, rgba(0,0,0,0.5));
+    pointer-events: none;
+    z-index: -1;
+    animation: gradientShift 20s ease infinite;
+    will-change: opacity;
+  }
+
+  html {
+    @apply h-full;
+  }
+
+  #root {
+    @apply h-full;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: linear-gradient(135deg, rgba(20, 20, 35, 0.5) 0%, rgba(25, 25, 40, 0.6) 100%);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 0 30px rgba(0, 146, 70, 0.08);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(255, 107, 122, 0.5);
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, white, #ff6b7a, #fbbf24);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .bg-dark-bg {
+    background-color: #0a0a0f;
+  }
+  
+  .bg-dark-card {
+    background-color: rgba(25, 25, 35, 0.85);
+  }
+  
+  .border-dark-border {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .text-primary {
+    color: #ff6b7a;
+    background: linear-gradient(90deg, #009246 0%, #ffffff 50%, #CE2B37 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: italianFlagGradient 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(0, 146, 70, 0.3));
+  }
+  
+  .text-primary-flag {
+    color: #22c55e;
+    background: linear-gradient(90deg, #009246 0%, #ffffff 50%, #CE2B37 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: italianFlagGradient 4s ease-in-out infinite;
+  }
+  
+  .bg-primary {
+    background-color: #ff6b7a;
+  }
+}
+
+@keyframes slowZoom {
+  0%, 100% { transform: translateZ(0) scale(1); }
+  50% { transform: translateZ(0) scale(1.05); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.1); }
+  20%, 40% { transform: scale(0.9); }
+}
+
+@keyframes numberFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes progressSlide {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flagWave {
+  0%, 100% { transform: translateY(0) rotateZ(0deg); }
+  25% { transform: translateY(-4px) rotateZ(-2deg); }
+  75% { transform: translateY(-4px) rotateZ(2deg); }
+}
+
+@keyframes textGlow {
+  0%, 100% { 
+    text-shadow: 0 0 8px rgba(0, 146, 70, 0.3);
+  }
+  50% { 
+    text-shadow: 0 0 15px rgba(0, 146, 70, 0.5), 0 0 25px rgba(0, 146, 70, 0.3);
+  }
+}
+
+@keyframes italianFlagGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Performance optimizations */
+@layer utilities {
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .optimize-animations {
+    will-change: transform, opacity, background-position;
+  }
+
+  .reduce-motion {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reduce backdrop-filter blur for better performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes whiteGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.4));
+    opacity: 0.9;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.6));
+    opacity: 1;
+  }
+}
+
+@keyframes yellowGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.8)) drop-shadow(0 0 20px rgba(255, 193, 7, 0.6)) drop-shadow(0 0 30px rgba(255, 193, 7, 0.4));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 193, 7, 1)) drop-shadow(0 0 30px rgba(255, 193, 7, 0.8)) drop-shadow(0 0 45px rgba(255, 193, 7, 0.6));
+    opacity: 1;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  [role="button"],
+  .cursor-pointer {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  * {
+    -webkit-tap-highlight-color: rgba(255, 107, 122, 0.3);
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  p, span, li, h1, h2, h3, h4, h5, h6 {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}
+
+.touch-active {
+  border-color: rgba(34, 197, 94, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 40px rgba(255,107,122,0.2), 0 0 60px rgba(255,107,122,0.3) !important;
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+/* Mobile optimizations - General */
+@media screen and (max-width: 768px) {
+  article {
+    padding-top: 3rem !important;
+    padding-right: 3.5rem !important;
+    padding-left: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  article[data-simple-slide="true"] {
+    padding-top: 1.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) {
+    -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto !important;
+    overflow-x: visible !important;
+    max-height: 100vh !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  /* Ensure h2 titles are not overlapped by content boxes */
+  article:not([data-simple-slide="true"]) h2 {
+    margin-bottom: 1rem !important;
+    margin-top: 0.5rem !important;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  /* Prevent text selection and hover effects on slides 3, 4, 5 (Geography, Economy, NaturalConditions) */
+  article:not([data-simple-slide="true"]) p,
+  article:not([data-simple-slide="true"]) li {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+  }
+  
+  /* Remove hover effects from list items */
+  article:not([data-simple-slide="true"]) li:hover {
+    font-weight: inherit !important;
+    transform: none !important;
+  }
+  
+  /* Ensure list containers don't clip glow on bullets */
+  article ul,
+  article ol {
+    overflow: visible !important;
+    padding-left: 0.75rem !important;
+  }
+  
+  /* Ensure list items have space for glow and are visible */
+  article li {
+    overflow: visible !important;
+    position: relative !important;
+  }
+  
+  /* Prevent clipping of bullet glow - ensure markers are visible with proper spacing */
+  article li > span[class*="rounded-full"],
+  article li > span[style*="rounded-full"] {
+    overflow: visible !important;
+    margin-left: -0.25rem !important;
+  }
+  
+  /* Ensure parent containers allow glow to be visible */
+  article > div > div[class*="grid"],
+  article > div > div[class*="flex"] {
+    overflow: visible !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h3 {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) p, 
+  article:not([data-simple-slide="true"]) li {
+    margin-bottom: 0.375rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .grid {
+    gap: 0.5rem !important;
+  }
+  
+  article[data-mobile-fix="true"] h2 {
+    font-size: 1.25rem !important;
+    padding-right: 3rem !important;
+    text-align: left !important;
+    margin-left: 0.5rem !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+    position: relative;
+    z-index: 10;
+  }
+  
+  article[data-mobile-fix="true"] > div {
+    margin-top: 0.75rem !important;
+  }
+  
+  article[data-mobile-fix="true"] > div > div {
+    margin-top: 0.5rem !important;
+  }
+  
+  /* Fix for slides 12-16 - ensure content doesn't overlap titles */
+  article:not([data-simple-slide="true"]) > div > div {
+    margin-top: 0.25rem !important;
+  }
+  
+  /* Ensure glassmorphism containers don't overlap titles */
+  article:not([data-simple-slide="true"]) .relative.group {
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* iPhone 11, 11 Pro, 11 Pro Max - 828x1792, 1125x2436, 1242x2688 */
+@media screen and (device-width: 414px) and (device-height: 896px),
+       screen and (device-width: 375px) and (device-height: 812px),
+       screen and (device-width: 414px) and (device-height: 896px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* iPhone 12, 12 Pro, 13, 13 Pro, 14, 14 Pro - 390x844, 1170x2532 */
+@media screen and (device-width: 390px) and (device-height: 844px),
+       screen and (device-width: 390px) and (-webkit-device-pixel-ratio: 3),
+       screen and (min-width: 390px) and (max-width: 390px) and (min-height: 844px) and (max-height: 844px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Aggressive spacing reduction for content containers */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 0.25rem !important;
+    gap: 0.375rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) > div > div[class*="flex flex-col"] {
+    gap: 0.375rem !important;
+  }
+  
+  /* Reduce padding in glassmorphism containers */
+  article:not([data-simple-slide="true"]) .relative.group > div[class*="p-"] {
+    padding: 0.5rem 0.625rem !important;
+  }
+  
+  /* Smaller fonts in containers */
+  article:not([data-simple-slide="true"]) .relative.group h3 {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group p,
+  article:not([data-simple-slide="true"]) .relative.group li {
+    font-size: 0.6875rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.125rem !important;
+  }
+  
+  /* Smaller icons */
+  article:not([data-simple-slide="true"]) .relative.group svg {
+    width: 0.875rem !important;
+    height: 0.875rem !important;
+  }
+  
+  /* Smaller bullet points */
+  article:not([data-simple-slide="true"]) .relative.group li > span[class*="rounded-full"] {
+    width: 0.375rem !important;
+    height: 0.375rem !important;
+  }
+}
+
+/* iPhone 12 Pro Max, 13 Pro Max, 14 Plus - 428x926 */
+@media screen and (device-width: 428px) and (device-height: 926px),
+       screen and (min-width: 428px) and (max-width: 428px) and (min-height: 926px) and (max-height: 926px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Aggressive spacing reduction */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 0.25rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group > div[class*="p-"] {
+    padding: 0.625rem 0.75rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group h3 {
+    font-size: 0.875rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group p,
+  article:not([data-simple-slide="true"]) .relative.group li {
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* iPhone 13, 13 Pro, 14, 14 Pro - 390x844, 1170x2532 */
+@media screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.18rem !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  /* Prevent content boxes from overlapping titles on slides 12-16 */
+  article:not([data-simple-slide="true"]) > div > div > div {
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* iPhone 14 Pro Max, 15 Plus, 15 Pro Max, 16 Plus, 16 Pro Max - 430x932 */
+@media screen and (device-width: 430px) and (device-height: 932px),
+       screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3),
+       screen and (min-width: 430px) and (max-width: 430px) and (min-height: 932px) and (max-height: 932px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Aggressive spacing reduction */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 0.25rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group > div[class*="p-"] {
+    padding: 0.625rem 0.75rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group h3 {
+    font-size: 0.875rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group p,
+  article:not([data-simple-slide="true"]) .relative.group li {
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* iPhone 15, 15 Pro, 16, 16 Pro - 393x852 */
+@media screen and (device-width: 393px) and (device-height: 852px),
+       screen and (min-width: 393px) and (max-width: 393px) and (min-height: 852px) and (max-height: 852px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Aggressive spacing reduction for content containers */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 0.25rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) > div > div[class*="flex flex-col"] {
+    gap: 0.5rem !important;
+  }
+  
+  /* Reduce padding in glassmorphism containers */
+  article:not([data-simple-slide="true"]) .relative.group > div[class*="p-"] {
+    padding: 0.625rem 0.75rem !important;
+  }
+  
+  /* Smaller fonts in containers */
+  article:not([data-simple-slide="true"]) .relative.group h3 {
+    font-size: 0.8125rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) .relative.group p,
+  article:not([data-simple-slide="true"]) .relative.group li {
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Smaller icons */
+  article:not([data-simple-slide="true"]) .relative.group svg {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+}
+
+
+/* Samsung Galaxy S series - Common sizes */
+/* Galaxy S10, S10+, S10e - 360x760, 412x869, 360x760 */
+@media screen and (device-width: 360px) and (device-height: 760px),
+       screen and (device-width: 412px) and (device-height: 869px) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.7rem !important;
+  }
+}
+
+/* Galaxy S20, S21, S22 - 360x800, 412x915 */
+@media screen and (device-width: 360px) and (device-height: 800px),
+       screen and (device-width: 412px) and (device-height: 915px) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* Galaxy S23, S24 - 360x780, 393x851 */
+@media screen and (device-width: 360px) and (device-height: 780px),
+       screen and (device-width: 393px) and (device-height: 851px) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.18rem !important;
+    margin-bottom: 0.8rem !important;
+  }
+}
+
+/* Samsung Galaxy Note series - 412x915, 412x869 */
+@media screen and (device-width: 412px) and (device-height: 915px),
+       screen and (device-width: 412px) and (device-height: 869px) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+}
+
+/* Samsung Galaxy A series - Common sizes 360x800, 412x915 */
+@media screen and (device-width: 360px) and (device-height: 800px) and (min-device-pixel-ratio: 2) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.7rem !important;
+  }
+}
+
+/* Samsung Galaxy Fold - 280x653 (folded), 512x897 (unfolded) */
+@media screen and (device-width: 280px) and (device-height: 653px) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1rem !important;
+    margin-bottom: 0.6rem !important;
+  }
+}
+
+@media screen and (device-width: 512px) and (device-height: 897px) {
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+}
+
+/* General Samsung optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 480px) {
+  /* Reduce padding and margins for better fit */
+  article:not([data-simple-slide="true"]) {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Ensure content containers have proper spacing */
+  article:not([data-simple-slide="true"]) > div > div {
+    gap: 0.5rem !important;
+  }
+  
+  /* Glassmorphism containers spacing */
+  article:not([data-simple-slide="true"]) .relative.group {
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Additional mobile optimizations for slides 12-16 - prevent title overlap */
+@media screen and (max-width: 768px) {
+  /* Ensure all h2 titles have proper spacing and z-index to prevent overlap */
+  article:not([data-simple-slide="true"]) h2 {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    z-index: 10 !important;
+    position: relative !important;
+    min-height: fit-content !important;
+  }
+  
+  /* Add spacing between title and content containers */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 0.25rem !important;
+  }
+  
+  /* Ensure glassmorphism containers don't overlap titles */
+  article:not([data-simple-slide="true"]) .relative.group {
+    margin-bottom: 0.375rem !important;
+  }
+  
+  /* Reduce gap in flex containers to save space */
+  article:not([data-simple-slide="true"]) > div > div[class*="flex flex-col"] {
+    gap: 0.375rem !important;
+  }
+  
+  /* Fix glow on bullets - prevent clipping on mobile - add padding to lists */
+  article ul,
+  article ol {
+    overflow: visible !important;
+    padding-left: 1rem !important;
+    margin-left: -0.5rem !important;
+  }
+  
+  article li {
+    overflow: visible !important;
+    position: relative !important;
+    margin-left: 0.5rem !important;
+  }
+  
+  /* Ensure bullet markers with glow are not clipped - negative margin to allow glow expansion */
+  article li > span[class*="rounded-full"],
+  article li > span[style*="rounded-full"] {
+    overflow: visible !important;
+    position: absolute !important;
+    margin-left: -0.5rem !important;
+  }
+  
+  /* Ensure parent containers don't clip glow - allow horizontal overflow */
+  article > div,
+  article > div > div {
+    overflow-x: visible !important;
+  }
+  
+  /* Ensure grid and flex containers don't clip */
+  article > div > div[class*="grid"],
+  article > div > div[class*="flex"] {
+    overflow-x: visible !important;
+  }
+  
+  /* Remove scrollbar for secondary-sector slide (slide 13) on mobile - use data attribute instead of :has() for better browser support */
+  article[data-slide-type="secondary-sector"] {
+    overflow: hidden !important;
+  }
+  
+  article[data-slide-type="secondary-sector"] > div {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  article[data-slide-type="secondary-sector"] > div > div[class*="grid"] {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  article[data-slide-type="secondary-sector"] > div > div[class*="flex flex-col"] {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  /* Remove scrollbar for tertiary-sector slide (slide 14) on mobile */
+  article[data-slide-type="tertiary-sector"] {
+    overflow: hidden !important;
+  }
+  
+  article[data-slide-type="tertiary-sector"] > div {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  article[data-slide-type="tertiary-sector"] > div > div[class*="grid"] {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  article[data-slide-type="tertiary-sector"] > div > div[class*="flex flex-col"] {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  /* Center content vertically for tertiary-sector slide (slide 14) - all devices */
+  article[data-slide-type="tertiary-sector"] > div > div[class*="grid"] > div[class*="flex flex-col"] {
+    justify-content: center !important;
+    align-items: flex-start !important;
+  }
+  
+  /* Center content vertically for secondary-sector slide (slide 13) on mobile */
+  article[data-slide-type="secondary-sector"] > div > div[class*="grid"] > div[class*="flex flex-col"] {
+    justify-content: center !important;
+  }
+  
+  /* Remove scrollbar for primary-sector slide (slide 12) on mobile */
+  article[data-slide-type="primary-sector"] {
+    overflow: hidden !important;
+  }
+  
+  article[data-slide-type="primary-sector"] > div {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  article[data-slide-type="primary-sector"] > div > div[class*="grid"] {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  /* Hide scrollbar for primary-sector content but allow scrolling */
+  .primary-sector-content {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  .primary-sector-content::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+/* Specific fix for iPhone 14 (390x844) - most common issue reported */
+@media screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+  article:not([data-simple-slide="true"]) {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  article:not([data-simple-slide="true"]) h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 1.25rem !important;
+    margin-top: 0.5rem !important;
+    padding-bottom: 0.75rem !important;
+    line-height: 1.3 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  /* Ensure content doesn't overlap title - increase spacing significantly */
+  article:not([data-simple-slide="true"]) > div > div[class*="grid"] {
+    margin-top: 1rem !important;
+    gap: 0.625rem !important;
+  }
+  
+  /* Reduce padding in glassmorphism containers to save space */
+  article:not([data-simple-slide="true"]) .relative.group > div[class*="p-"] {
+    padding: 0.625rem 0.75rem !important;
+  }
+  
+  /* Reduce font sizes slightly to fit better */
+  article:not([data-simple-slide="true"]) .relative.group p,
+  article:not([data-simple-slide="true"]) .relative.group li {
+    font-size: 0.8125rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Reduce gap in content containers */
+  article:not([data-simple-slide="true"]) > div > div[class*="flex flex-col"] {
+    gap: 0.5rem !important;
+  }
+  
+  /* Reduce h3 font sizes */
+  article:not([data-simple-slide="true"]) .relative.group h3 {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Reduce gap between items in lists */
+  article:not([data-simple-slide="true"]) .relative.group ul {
+    gap: 0.375rem !important;
+  }
+}
+
+[role="main"] {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent content flash when slides are transitioning - hide ALL content */
+article[aria-hidden="true"] *,
+article:not([data-slide-visible="true"]) *,
+article[data-slide-visible="false"] * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  animation: none !important;
+  transition: none !important;
+  transform: scale(0) !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  clip-path: inset(0) !important;
+}
+
+/* Only show content when slide is fully visible */
+article[data-slide-visible="true"] > div {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.video-slide-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-slide-title {
+  font-weight: 900 !important;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+  .video-slide-title {
+    font-size: 8rem !important;
+    line-height: 0.9 !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em !important;
+  }
+  
+  .video-wrapper {
+    max-width: 90%;
+  }
+  
+  .video-description {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+    margin-top: 0.75rem !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .video-slide-title {
+    font-size: 7rem !important;
+    line-height: 0.85 !important;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .video-slide-title {
+    font-size: 22vw !important;
+    line-height: 0.85 !important;
+    max-width: 100vw;
+    word-break: break-word;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .video-slide-title {
+    font-size: 3.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media screen and (max-width: 430px) and (max-height: 932px) {
+  article {
+    padding: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  h2:not(.video-slide-title) {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .video-slide-title {
+    font-size: 22vw !important;
+    line-height: 0.85 !important;
+    font-weight: 900 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.125rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  p, li, span {
+    font-size: 0.8125rem !important;
+    line-height: 1.35 !important;
+  }
+  
+  [class*="bg-white/6"] {
+    padding: 0.625rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+  
+  header {
+    padding: 0.375rem !important;
+    font-size: 0.6875rem !important;
+    z-index: 50 !important;
+    pointer-events: auto !important;
+  }
+  
+  header nav,
+  header button {
+    pointer-events: auto !important;
+    z-index: 51 !important;
+    position: relative;
+  }
+  
+  footer {
+    padding: 0.375rem !important;
+    font-size: 0.6875rem !important;
+  }
+  
+  .grid {
+    gap: 0.375rem !important;
+  }
+  
+  ul {
+    gap: 0.25rem !important;
+  }
+  
+  li {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  
+  body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+}
+
+@media screen and (min-width: 428px) and (max-width: 430px) and (max-height: 932px) {
+  h2:not(.video-slide-title) {
+    font-size: 1.75rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  p, li, span {
+    font-size: 0.875rem !important;
+  }
+  
+  .video-slide-title {
+    font-size: 7rem !important;
+    line-height: 0.85 !important;
+    font-weight: 900 !important;
+  }
+}
+
+@media screen and (max-height: 430px) and (orientation: landscape) {
+  article {
+    padding: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  h2:not(.video-slide-title) {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .video-slide-title {
+    font-size: 6rem !important;
+    font-weight: 900 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  p, li {
+    font-size: 0.8125rem !important;
+  }
+  
+  img {
+    max-height: 180px !important;
+  }
+  
+  header, footer {
+    padding: 0.375rem !important;
+    font-size: 0.6875rem !important;
+  }
+  
+  header {
+    z-index: 50 !important;
+    pointer-events: auto !important;
+  }
+  
+  header nav,
+  header button {
+    pointer-events: auto !important;
+    z-index: 51 !important;
+    position: relative;
+  }
+}
+
+/* Ensure header and navigation buttons are always clickable - Global rules */
+header {
+  z-index: 50 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+header * {
+  pointer-events: auto !important;
+}
+
+header nav {
+  pointer-events: auto !important;
+  z-index: 51 !important;
+  position: relative !important;
+}
+
+header button,
+header nav button,
+header nav button[aria-label],
+header nav button[disabled] {
+  pointer-events: auto !important;
+  z-index: 52 !important;
+  position: relative !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+header button:disabled {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+/* Ensure slides don't block header clicks - inactive slides */
+article[data-slide-visible="false"],
+article[aria-hidden="true"] {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+article[data-slide-visible="false"] *,
+article[aria-hidden="true"] * {
+  pointer-events: none !important;
+}
+
+/* Active slide should not block header */
+article[data-slide-visible="true"] {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Presentation container layout - header above everything */
+.presentation-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.presentation-container > header {
+  position: relative;
+  z-index: 50 !important;
+  pointer-events: auto !important;
+  flex-shrink: 0;
+}
+
+.presentation-container > main {
+  z-index: 1;
+  pointer-events: auto;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.presentation-container > main > div {
+  z-index: 1;
+  pointer-events: auto;
+  position: relative;
+  height: 100%;
+}
+
+/* Ensure slides don't extend beyond main container and block header */
+.presentation-container > main article {
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Footer should be above slides but below header */
+.presentation-container > footer {
+  z-index: 49 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  flex-shrink: 0;
+}
+
+@supports (-webkit-touch-callout: none) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
